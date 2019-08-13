@@ -517,17 +517,17 @@ class TagRelatedManagerMixin(BaseTagRelatedManager):
         """
         db_tags = []
         for tag in tags:
-            if (tag[0] is not None) and tag[0].pk:
+            if tag[0].pk:
                 # Already in DB
-                db_tag = tag
+                db_tag = tag[0]
             else:
                 # Not in DB - get or create
                 field_lookup = 'name'
                 if not self.tag_options.case_sensitive:
                     field_lookup += '__iexact'
                 db_tag, __ = self.tag_model.objects.get_or_create(
-                    defaults={'name': tag.name, 'protected': False},
-                    **{field_lookup: tag.name}
+                    defaults={'name': tag[0].name, 'protected': False},
+                    **{field_lookup: tag[0].name}
                 )
             db_tags.append(db_tag)
         return db_tags
