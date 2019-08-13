@@ -186,7 +186,7 @@ class SingleTagManager(object):
         # Only need to go further if there has been a change
         if not self.changed:
             return
-https://github.com/samaranin/django-tagulous.git
+
         # Store the old tag so we know to decrement it in post_save
         self.removed_tag = self.get_actual()
 
